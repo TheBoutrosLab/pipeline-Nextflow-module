@@ -125,7 +125,7 @@ process compress_VCF_bgzip {
     script:
     """
     set -euo pipefail
-    bgzip ${META.getOrDefault('bgzip_extra_args', ''} ${file_to_compress}
+    bgzip ${META.getOrDefault('bgzip_extra_args', '')} ${file_to_compress}
     """
 }
 
@@ -180,6 +180,6 @@ process index_VCF_tabix {
     script:
     """
     set -euo pipefail
-    tabix ${META.getOrDefault('tabix_extra_args', ''} -p \$(basename $file_to_index .gz | tail -c 4) $file_to_index
+    tabix ${META.getOrDefault('tabix_extra_args', '')} -p \$(basename $file_to_index .gz | tail -c 4) $file_to_index
     """
 }
