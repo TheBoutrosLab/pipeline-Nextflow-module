@@ -38,9 +38,9 @@ process run_validate_PipeVal {
 
     if command -v pipeval &> /dev/null
     then
-        pipeval validate ${file_to_validate} ${extra_args} > 'validation.txt'
+        pipeval validate ${file_to_validate} ${extra_args} |& tee -a 'validation.txt'
     else
-        validate ${file_to_validate} ${extra_args} > 'validation.txt'
+        validate ${file_to_validate} ${extra_args} |& tee -a 'validation.txt'
     fi
     """
 }
