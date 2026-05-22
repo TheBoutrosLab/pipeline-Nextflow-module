@@ -21,7 +21,7 @@ process extract_GenomeIntervals {
         mode: "copy",
         pattern: "genomic_intervals.list",
         enabled: params.getOrDefault('save_intermediate_files', false)
-    publishDir path: "${META.log_output_dir}/process-log",
+    publishDir path: "${META.log_output_dir}",
         mode: "copy",
         pattern: ".command.*",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
