@@ -18,7 +18,7 @@
 
 process convert_BCF2VCF_BCFtools {
     container "${META.getOrDefault('docker_image', 'ghcr.io/uclahs-cds/bcftools:1.21')}"
-    publishDir path: "${META.log_output_dir}/process-log",
+    publishDir path: "${META.log_output_dir}",
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/${META.id}/log${file(it).getName()}" }

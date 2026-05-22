@@ -15,7 +15,7 @@
 process run_validate_PipeVal {
     container "${META.getOrDefault('docker_image', 'ghcr.io/uclahs-cds/pipeval:5.0.0-rc.3')}"
 
-    publishDir path: "${META.log_output_dir}/process-log",
+    publishDir path: "${META.log_output_dir}",
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/${task.process.split(':')[-1]}-${task.index}/log${file(it).getName()}" }

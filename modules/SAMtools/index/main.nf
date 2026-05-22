@@ -19,7 +19,7 @@
 
 process run_index_SAMtools {
     container "${META.getOrDefault('docker_image', 'ghcr.io/uclahs-cds/samtools:1.21')}"
-    publishDir path: "${META.log_output_dir}/process-log",
+    publishDir path: "${META.log_output_dir}",
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/${META.id}/log${file(it).getName()}" }
