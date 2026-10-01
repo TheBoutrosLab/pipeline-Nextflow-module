@@ -6,11 +6,13 @@
 *           docker_image (optional): String
 *           log_output_dir (required): String
 *           validate_extra_args (optional): String
+*           reference_fasta (optional): Path to the reference FASTA; its directory is mounted in the container
 *   @input  file_to_validate    path    File or directory to validate
 *
 *   @params log_output_dir  path    Directory for saving log files
 *   @params docker_image_version    string  Version of PipeVal image for validation
 *   @params main_process    string  (Optional) Name of main output directory
+*   @params container_mount_flag    string  Container bind-mount flag when reference_fasta is provided
 */
 process run_validate_PipeVal {
     container "${META.getOrDefault('docker_image', 'ghcr.io/uclahs-cds/pipeval:5.0.0-rc.3')}"
@@ -21,7 +23,14 @@ process run_validate_PipeVal {
         saveAs: { "${task.process.replace(':', '/')}/${task.process.split(':')[-1]}-${task.index}/log${file(it).getName()}" }
 
     // This process uses the publishDir method to save the log files
-    ext capture_logs: false
+    ext capture_logs: false,
+        containerOptions: {
+            if (META.containsKey('reference_fasta')) {
+                def reference_dir = file(META.reference_fasta).parent
+                return "${params.container_mount_flag} \"${reference_dir}:${reference_dir}\""
+            }
+            return ''
+        }
 
     input:
         tuple val(META), path(file_to_validate)
