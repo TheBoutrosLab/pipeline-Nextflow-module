@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Capture both stdout and stderr in text file from validation
 - Standardize expected log directory specification across modules
+- Mount reference directory when path given in META
 
 ### Fixed
 
