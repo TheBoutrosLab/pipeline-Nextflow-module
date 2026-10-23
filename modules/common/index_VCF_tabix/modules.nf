@@ -14,6 +14,7 @@ process check_compression_bgzip {
     container "${META.getOrDefault('docker_image', 'ghcr.io/uclahs-cds/samtools:1.21')}"
     publishDir path: "${META.log_output_dir}",
                mode: "copy",
+               failOnError: false,
                pattern: ".command.*",
                saveAs: { "${task.process.replace(':', '/')}/${META.id}/log${file(it).getName()}" }
 
@@ -24,7 +25,7 @@ process check_compression_bgzip {
     tuple val(META), path(file_to_check)
 
     output:
-    tuple val(META), path(file_to_check), env(IS_COMPRESSED), emit: checked_files
+    tuple val(META), path(file_to_check), env('IS_COMPRESSED'), emit: checked_files
     path ".command.*"
 
     shell '/bin/bash', '-uo', 'pipefail'
@@ -58,6 +59,7 @@ process uncompress_file_gunzip {
     container "${META.getOrDefault('docker_image', 'ghcr.io/uclahs-cds/samtools:1.21')}"
     publishDir path: "${META.log_output_dir}",
                mode: "copy",
+               failOnError: false,
                pattern: ".command.*",
                saveAs: { "${task.process.replace(':', '/')}/${META.id}/log${file(it).getName()}" }
 
@@ -104,11 +106,13 @@ process compress_VCF_bgzip {
             : META.output_dir + "/intermediate/" + task.process.replace(':', '/')
         }",
         mode: "copy",
+        failOnError: false,
         enabled: "${META.getOrDefault('is_output_file', true) || META.getOrDefault('save_intermediate_files', false) }",
         pattern: "*.gz"
 
     publishDir path: "${META.log_output_dir}",
                mode: "copy",
+               failOnError: false,
                pattern: ".command.*",
                saveAs: { "${task.process.replace(':', '/')}/${META.id}/log${file(it).getName()}" }
 
@@ -159,11 +163,13 @@ process index_VCF_tabix {
             : META.output_dir + "/intermediate/" + task.process.replace(':', '/')
         }",
         mode: "copy",
+        failOnError: false,
         enabled: "${META.getOrDefault('is_output_file', true) || META.getOrDefault('save_intermediate_files', false) }",
         pattern: "*.{tbi,csi}"
 
     publishDir path: "${META.log_output_dir}",
                mode: "copy",
+               failOnError: false,
                pattern: ".command.*",
                saveAs: { "${task.process.replace(':', '/')}/${META.id}/log${file(it).getName()}" }
     
