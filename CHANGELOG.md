@@ -13,6 +13,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Capture both stdout and stderr in text file from validation
 - Standardize expected log directory specification across modules
 - Mount reference directory when path given in META
+- Set `failOnError: false` on all `publishDir` directives to keep non-failing publish behavior on Nextflow 24.04+
+- Quote `env` output name in `check_compression_bgzip`
 
 ### Fixed
 
