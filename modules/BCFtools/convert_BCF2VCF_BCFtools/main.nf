@@ -21,10 +21,12 @@ process convert_BCF2VCF_BCFtools {
     publishDir path: "${META.log_output_dir}",
         pattern: ".command.*",
         mode: "copy",
+        failOnError: false,
         saveAs: { "${task.process.replace(':', '/')}/${META.id}/log${file(it).getName()}" }
 
     publishDir path: "${META.output_dir}",
         mode: "copy",
+        failOnError: false,
         pattern: "*.vcf.gz"
 
     ext capture_logs: false

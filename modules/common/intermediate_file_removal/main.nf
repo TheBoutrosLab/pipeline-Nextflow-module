@@ -20,6 +20,7 @@ process remove_intermediate_files {
     publishDir path: "${META.log_output_dir}",
       pattern: ".command.*",
       mode: "copy",
+      failOnError: false,
       saveAs: { "${task.process.replace(':', '/')}/${task.process.split(':')[-1]}-${task.index}/log${file(it).getName()}" }
 
     // This process uses the publishDir method to save the log files

@@ -22,11 +22,13 @@ process generate_checksum_PipeVal {
     publishDir path: "${META.log_output_dir}",
         pattern: ".command.*",
         mode: "copy",
+        failOnError: false,
         saveAs: { "${task.process.replace(':', '/')}/${task.process.split(':')[-1]}-${task.index}/log${file(it).getName()}" }
 
     publishDir path: "${META.output_dir}",
         pattern: "*.${checksum_alg}",
-        mode: "copy"
+        mode: "copy",
+        failOnError: false
 
     // This process uses the publishDir method to save the log files
     ext capture_logs: false
