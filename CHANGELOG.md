@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 
+- Update to support Nextflow v25.10.5
 - Capture both stdout and stderr in text file from validation
 - Standardize expected log directory specification across modules
 - Mount reference directory when path given in META
